@@ -3,10 +3,10 @@ Write-Host "=======================================" -ForegroundColor Cyan
 Write-Host "   Generating Pi Node Dashboard...     " -ForegroundColor Cyan
 Write-Host "=======================================" -ForegroundColor Cyan
 
-# 保存先のパスを設定
+# Set save paths
 $HtmlFile = "$env:TEMP\pi_dashboard.html"
-# 💡 スクリプトと同じフォルダに「pi_node_results.txt」という名前で保存します
-$TxtFile  = "$PSScriptRoot\pi_node_results.txt"
+# Save "pi_node_results.txt" in the same folder as this script
+$TxtFile  = "$PSScriptRoot\basic_info.txt"
 
 # 1. Execute commands and capture outputs
 $wsl  = (wsl -l -v 2>&1) -join "`n"
@@ -62,7 +62,7 @@ $template = @'
 $html = $template.Replace('_WSL_', $wsl).Replace('_DPS_', $dps).Replace('_DVER_', $dver).Replace('_DST_', $dst)
 [System.IO.File]::WriteAllText($HtmlFile, $html, [System.Text.Encoding]::UTF8)
 
-# 4. ✨追加：すべての結果を1つのテキストファイルにまとめて保存
+# 4. Export all results into a single report text file
 $textContent = @"
 =======================================
 Pi Node Local Scan Report
